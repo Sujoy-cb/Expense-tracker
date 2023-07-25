@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800;900&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans', sans-serif;
+}
+.main_part{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.main_part .inner_part{
+  width: 400px;
+  height: 500px;
+  background: #f5f5f5;
+  text-align: center;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px 0px rgba(217,217,217,1);
+}
+.main_part .header{
+  display: inline-block;
+  font-size: 30px;
+  color: #071952;
+  font-weight: 700;
+}
+.balance_part{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+.balance_part .income h3{
+  font-size: 24px;
+  color: #3CCF4E;
+  font-weight: 700;
+}
+.balance_part .income h6{
+  font-size: 20px;
+  color: #3CCF4E;
+  font-weight: 700;
+}
+.balance_part .expense h3{
+  font-size: 24px;
+  color: #FF1700;
+  font-weight: 700;
+}
+.balance_part .expense h6{
+  font-size: 20px;
+  color: #FF1700;
+  font-weight: 700;
+}
