@@ -1,7 +1,29 @@
+import { useState,useEffect } from "react"
 import RoutesItem from "../component/Routes/RoutesItem"
 import {FaTrashAlt} from "react-icons/fa"
+import { db } from "../FirebaseConfig"
+import {collection, getDocs, addDoc} from "firebase/firestore"
 
 const Income = () => {
+  let [allIncome, setAllIncome] = useState([])
+  let [income, setIncome] = useState("")
+  let [amount,setAmount] = useState("")
+  let incomeData = collection(db,'income')
+
+  let handleIncome= async ()=>{
+    await addDoc(incomeData,{income: income,amount: amount})
+  }
+
+
+  useEffect(()=>{
+    let storedData = async ()=>{
+      let myIncome = await getDocs(incomeData)
+      setAllIncome(myIncome.docs.map((doc)=>({...doc.data(),id:doc.id})))
+    }
+    storedData()
+  },[])
+
+
   return (
     <>
     <div className="income_part w-96 h-auto bg-zinc-50 p-4 border rounded shadow-md">
@@ -13,13 +35,13 @@ const Income = () => {
       </div>
       <div className="input_part mt-4">
       <span>
-        <input type="text" className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-green-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Add name of income" />
+        <input type="text" className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-green-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Add name of income" onChange={(e) => setIncome(e.target.value)} value={income}/>
       </span>
       <span>
-        <input type="number" className="mt-3 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-green-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Add amount" />
+        <input type="number" className="mt-3 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-green-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Add amount" onChange={(e) => setAmount(e.target.value)} value={amount}/>
       </span>
       <span>
-        <button className="mt-4 w-full btn bg-green-500 text-white border-green-500 hover:bg-green-500 hover:border-green-500 ">
+        <button onClick={handleIncome} className="mt-4 w-full btn bg-green-600 text-white border-green-600 hover:bg-green-600 hover:border-green-600 ">
           Add transaction
         </button>
       </span>
@@ -27,14 +49,12 @@ const Income = () => {
       <div className="history">
         <h3 className="text-md font-bold mt-3 border-b-2 border-slate-300 pb-2">Income History</h3>
         <ul className="h-64 overflow-y-scroll">
-          <li className="text-md font-bold text-white rounded bg-green-600 p-2 flex justify-between mt-3">Salary <span>$100.0</span> <span className="mt-1 cursor-pointer hover:text-red-500"><FaTrashAlt/></span></li>
-          <li className="text-md font-bold text-white rounded bg-green-600 p-2 flex justify-between mt-3">Salary <span>$100.0</span> <span className="mt-1 cursor-pointer hover:text-red-500"><FaTrashAlt/></span></li>
-          <li className="text-md font-bold text-white rounded bg-green-600 p-2 flex justify-between mt-3">Salary <span>$100.0</span> <span className="mt-1 cursor-pointer hover:text-red-500"><FaTrashAlt/></span></li>
-          <li className="text-md font-bold text-white rounded bg-green-600 p-2 flex justify-between mt-3">Salary <span>$100.0</span> <span className="mt-1 cursor-pointer hover:text-red-500"><FaTrashAlt/></span></li>
-          <li className="text-md font-bold text-white rounded bg-green-600 p-2 flex justify-between mt-3">Salary <span>$100.0</span> <span className="mt-1 cursor-pointer hover:text-red-500"><FaTrashAlt/></span></li>
-          <li className="text-md font-bold text-white rounded bg-green-600 p-2 flex justify-between mt-3">Salary <span>$100.0</span> <span className="mt-1 cursor-pointer hover:text-red-500"><FaTrashAlt/></span></li>
-          <li className="text-md font-bold text-white rounded bg-green-600 p-2 flex justify-between mt-3">Salary <span>$100.0</span> <span className="mt-1 cursor-pointer hover:text-red-500"><FaTrashAlt/></span></li>
-          <li className="text-md font-bold text-white rounded bg-green-600 p-2 flex justify-between mt-3">Salary <span>$100.0</span> <span className="mt-1 cursor-pointer hover:text-red-500"><FaTrashAlt/></span></li>
+        {allIncome.map((info)=>(
+          <>
+          <li className="text-md font-bold text-white rounded bg-green-600 p-2 flex justify-between mt-3">{info.income} <span>${info.amount}</span> <span className="mt-1 cursor-pointer"><FaTrashAlt/></span></li>
+          </>
+          
+        ))}
         </ul>
       </div>
     </div>

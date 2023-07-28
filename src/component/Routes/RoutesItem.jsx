@@ -6,7 +6,7 @@ const RoutesItem = () => {
     <>
         <div className="nav border border-1px border-[#cdcdcd] py-2">
             <ul className="flex justify-evenly">
-                <li className="text-base font-bold text-green-500">
+                <li className="text-base font-bold text-green-500 border-r-2 pr-14">
                     <Link to="/">Income</Link>
                 </li>
                 <li className="text-base font-bold text-red-500">
