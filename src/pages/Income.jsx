@@ -8,7 +8,9 @@ const Income = () => {
   let [allIncome, setAllIncome] = useState([])
   let [income, setIncome] = useState("")
   let [amount,setAmount] = useState("")
-  let [amount2,setAmount2] = useState()
+  let [amount2,setAmount2] = useState("")
+
+  let [total, setTotal] = useState(0)
 
   let [firstData, seftFirstData] = useState({})
 
@@ -29,9 +31,10 @@ const Income = () => {
     })
   },[allIncome])
   
-  console.log(amount2+=amount)
+  // console.log(setTotal(amount2+amount))
   let handleIncome= ()=>{
     setAllIncome([...allIncome,firstData])
+    setTotal(amount2+=amount)
     setIncome('')
     setAmount('')
 
@@ -46,7 +49,7 @@ const Income = () => {
       <RoutesItem/>
       <div className="amount mt-2">
         <h1 className="text-2xl font-bold text-green-500 text-center">Balance</h1>
-        <h2 className="text-2xl font-bold text-green-500 text-center">${income}</h2>
+        <h2 className="text-2xl font-bold text-green-500 text-center">${total}</h2>
         <p className="text-center mt-3">Last updated: 28-07-2023</p>
       </div>
       <div className="input_part mt-4">
@@ -54,7 +57,7 @@ const Income = () => {
         <input type="text" className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-green-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Add name of income" onChange={(e) => setIncome(e.target.value)} value={income}/>
       </span>
       <span>
-        <input type="number" className="mt-3 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-green-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Add amount" onChange={(e) => setAmount(e.target.value)} value={amount}/>
+        <input type="number" className="mt-3 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-green-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Add amount" onChange={(e) => setAmount(+e.target.value)} value={amount}/>
       </span>
       <span>
         <button onClick={handleIncome} className="mt-4 w-full btn bg-green-600 text-white border-green-600 hover:bg-green-600 hover:border-green-600 ">
